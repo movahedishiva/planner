@@ -377,6 +377,6 @@ fun ShowDeleteTaskDialog(
 @Composable
 private fun ShowAddTaskDialogPreview() {
     PlannerTheme {
-        //ShowAddTaskDialog(onDismissDialog = { /*TODO*/ }, onAddTask = {}, showDialog = true)
+        //ShowAddTaskDialog(onDismissDialog = {  }, onAddTask = {}, showDialog = true)
     }
 }
