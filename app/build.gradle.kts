@@ -73,17 +73,18 @@ dependencies {
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.1.2")
+    coreLibraryDesugaring (libs.desugar.jdk.libs)
     // The view calendar library for Android
-    implementation("com.kizitonwose.calendar:view:2.0.0")
+    implementation(libs.view)
 
     // The compose calendar library for Android
-    implementation("com.kizitonwose.calendar:compose:2.0.0")
+    implementation(libs.compose)
 
     //Room
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+
 
 }

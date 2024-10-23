@@ -48,7 +48,9 @@ class MainActivity : ComponentActivity() {
 
             PlannerTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+                    tonalElevation = 5.dp,
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
                 ) {
                    // val viewModel: TaskViewModel = viewModel(factory = AppViewModelProvider.Factory)
                     MainScreen()
@@ -104,7 +106,7 @@ fun OnAddButton(onClick: () -> Unit) {
         onClick = { onClick() },
         shape = CircleShape
     ) {
-        Icon(Icons.Filled.Add, "Add")
+        Icon(Icons.Filled.Add, stringResource(R.string.add))
     }
 }
 

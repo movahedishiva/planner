@@ -19,6 +19,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -112,7 +113,7 @@ fun ToDoTitle(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.taskToDo),
             modifier = Modifier,
-            color = colorResource(R.color.purple_200),
+            color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold
         )
     }
@@ -147,7 +148,7 @@ fun TaskCard(task: Task, onRemoveTask: (task: Task) -> Unit, onUpdateTask: (task
             .fillMaxWidth()
             .padding(vertical = 4.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = colorResource(R.color.purple_50)),
+       // colors = CardDefaults.cardColors(containerColor = colorResource(R.color.purple_50)),
 
         ) {
         Row(

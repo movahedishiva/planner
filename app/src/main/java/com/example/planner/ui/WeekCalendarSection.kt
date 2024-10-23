@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -62,7 +63,8 @@ fun WeekCalendarSection(taskUiState: TaskUiState,onDaySelected:(LocalDate)->Unit
             .fillMaxWidth()
             .padding(vertical = 16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        colors = CardDefaults.cardColors(containerColor = colorResource(R.color.purple_50)),
+       // colors = CardDefaults.cardColors(containerColor = colorResource(R.color.purple_50)),
+        colors=CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
         shape = RectangleShape
         ) {
         Row(modifier = Modifier.padding(vertical = 16.dp)) {
@@ -99,9 +101,9 @@ fun DaysOfWeekTitle(week: Week, daysOfWeek: List<DayOfWeek>, currentDate: LocalD
                 textAlign = TextAlign.Center,
                 text = day.date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
                 fontWeight = if (day.date.dayOfWeek == currentDate.dayOfWeek && weekContainsCurrentDate) FontWeight.Bold else FontWeight.Normal,
-                color = if (day.date.dayOfWeek == currentDate.dayOfWeek && weekContainsCurrentDate) colorResource(
-                    R.color.purple_200
-                ) else colorResource(R.color.black)
+                color = if (day.date.dayOfWeek == currentDate.dayOfWeek && weekContainsCurrentDate)
+                    MaterialTheme.colorScheme.primary
+                 else colorResource(R.color.black)
             )
         }
 
@@ -122,11 +124,11 @@ fun Day(day: WeekDay, currentDate: LocalDate, onDaySelected: (LocalDate) -> Unit
             )
             .then(
                 if (day.date == currentDate) {
-                    Modifier.background(color = colorResource(R.color.purple_200), CircleShape)
+                    Modifier.background(color = MaterialTheme.colorScheme.primary /*colorResource(R.color.purple_200)*/, CircleShape)
                 } else if(day.date == taskUiState.selectedDate.value){
                     Modifier.background(color = colorResource(R.color.purple_100), CircleShape)
                 }else{
-                    Modifier.background(color = colorResource(R.color.purple_50), CircleShape)
+                    Modifier.background(color =MaterialTheme.colorScheme.secondaryContainer /*colorResource(R.color.purple_50)*/, CircleShape)
                 }
 
             ), // This is important for square sizing!
