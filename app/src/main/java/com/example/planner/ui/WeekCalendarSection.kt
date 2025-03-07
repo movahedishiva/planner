@@ -64,7 +64,7 @@ fun WeekCalendarSection(taskUiState: TaskUiState,onDaySelected:(LocalDate)->Unit
             .padding(vertical = 16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
        // colors = CardDefaults.cardColors(containerColor = colorResource(R.color.purple_50)),
-        colors=CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+        colors=CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
         shape = RectangleShape
         ) {
         Row(modifier = Modifier.padding(vertical = 16.dp)) {
@@ -101,9 +101,9 @@ fun DaysOfWeekTitle(week: Week, daysOfWeek: List<DayOfWeek>, currentDate: LocalD
                 textAlign = TextAlign.Center,
                 text = day.date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
                 fontWeight = if (day.date.dayOfWeek == currentDate.dayOfWeek && weekContainsCurrentDate) FontWeight.Bold else FontWeight.Normal,
-                color = if (day.date.dayOfWeek == currentDate.dayOfWeek && weekContainsCurrentDate)
-                    MaterialTheme.colorScheme.primary
-                 else colorResource(R.color.black)
+                color = MaterialTheme.colorScheme.onPrimary /*if (day.date.dayOfWeek == currentDate.dayOfWeek && weekContainsCurrentDate)
+                    MaterialTheme.colorScheme.onPrimary
+                 else MaterialTheme.colorScheme.onPrimary*/
             )
         }
 
@@ -123,12 +123,12 @@ fun Day(day: WeekDay, currentDate: LocalDate, onDaySelected: (LocalDate) -> Unit
                 }
             )
             .then(
-                if (day.date == currentDate) {
-                    Modifier.background(color = MaterialTheme.colorScheme.primary /*colorResource(R.color.purple_200)*/, CircleShape)
-                } else if(day.date == taskUiState.selectedDate.value){
-                    Modifier.background(color = colorResource(R.color.purple_100), CircleShape)
+                if (day.date == currentDate && day.date != taskUiState.selectedDate) {
+                    Modifier.background(color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.6F), CircleShape)
+                } else if(day.date == taskUiState.selectedDate){
+                    Modifier.background(color = MaterialTheme.colorScheme.primaryContainer,CircleShape)
                 }else{
-                    Modifier.background(color =MaterialTheme.colorScheme.secondaryContainer /*colorResource(R.color.purple_50)*/, CircleShape)
+                    Modifier.background(color =MaterialTheme.colorScheme.primary, CircleShape)
                 }
 
             ), // This is important for square sizing!
@@ -136,7 +136,11 @@ fun Day(day: WeekDay, currentDate: LocalDate, onDaySelected: (LocalDate) -> Unit
     ) {
         Text(
             text = day.date.dayOfMonth.toString(),
-            fontWeight = if (day.date == currentDate) FontWeight.Bold else FontWeight.Normal
+            fontWeight = if (day.date == currentDate) FontWeight.Bold else FontWeight.Normal,
+            color= if(day.date == currentDate || day.date == taskUiState.selectedDate)
+                MaterialTheme.colorScheme.onPrimaryContainer
+            else
+                MaterialTheme.colorScheme.onPrimary
         )
     }
 }

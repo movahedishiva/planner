@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.planner"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.planner"
@@ -43,12 +43,15 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
+    }
+    testOptions.unitTests {
+        isIncludeAndroidResources=true
     }
 }
 
@@ -62,6 +65,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -86,5 +90,20 @@ dependencies {
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
+    //testImplementation (libs.hamcrest)
+
+    testImplementation(libs.hamcrest)
+
+    // AndroidX Test - JVM testing
+    testImplementation (libs.junit.ktx)
+
+    testImplementation (libs.core.ktx)
+
+    testImplementation (libs.robolectric)
+
+    implementation(libs.accompanist.permissions)
+
+    androidTestImplementation ("com.google.truth:truth:1.0.1")
+    androidTestImplementation ("androidx.arch.core:core-testing:2.1.0")
 
 }

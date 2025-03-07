@@ -101,7 +101,7 @@ fun ShowAddTaskDialog(
 
                         Button(onClick = {
 
-                            onAddTask(text, taskUiState.selectedDate.value)
+                            onAddTask(text, taskUiState.selectedDate)
                             onDismissDialog()
 
                         }, modifier = Modifier.weight(1f)) {
@@ -142,7 +142,7 @@ fun ShowTaskDialog(
                     .fillMaxWidth()
                     .height(250.dp)
                     .padding(16.dp),
-                shape = RoundedCornerShape(16.dp),
+                shape = MaterialTheme.shapes.large//RoundedCornerShape(16.dp),
             ) {
                 Column(
                     modifier = Modifier
@@ -153,7 +153,7 @@ fun ShowTaskDialog(
                    // var text by remember { mutableStateOf("") }
                     val focusRequester = remember { FocusRequester() }
 
-                    Text(text = dialogTitle, fontWeight = FontWeight.Bold)
+                    Text(text = dialogTitle, style = MaterialTheme.typography.titleMedium)
                     OutlinedTextField(
                         value = textFieldValue,
                         onValueChange = { textFieldValue = it
@@ -171,8 +171,8 @@ fun ShowTaskDialog(
                         label = { Text(stringResource(R.string.task)) },
                         singleLine = true,
                         textStyle = TextStyle(
-                            color = colorResource(R.color.purple_200),
-                            fontWeight = FontWeight.Bold
+                           // color = colorResource(R.color.purple_200),
+                            fontWeight = FontWeight.SemiBold
                         ),
                         modifier = Modifier
                             .focusRequester(focusRequester)
@@ -224,7 +224,7 @@ fun ShowTaskDialog(
 }
 
 
-
+/*
 @Composable
 fun ShowUpdateTaskDialog(
     task: Task,
@@ -305,7 +305,7 @@ fun ShowUpdateTaskDialog(
 
     }
 
-}
+}*/
 
 
 @Composable
@@ -323,7 +323,7 @@ fun ShowDeleteTaskDialog(
                     .fillMaxWidth()
                     .height(200.dp)
                     .padding(16.dp),
-                shape = RoundedCornerShape(16.dp),
+                shape =MaterialTheme.shapes.large //RoundedCornerShape(16.dp),
             ) {
                 Column(
                     modifier = Modifier
@@ -333,10 +333,11 @@ fun ShowDeleteTaskDialog(
 
                 ) {
 
-                    Text(text = "Delete Task", fontWeight = FontWeight.Bold)
+                    Text(text = "Delete Task", style = MaterialTheme.typography.titleMedium)
 
                     Text(
-                        text = "Are you Sure you want to Delete task?",
+                        text = "Are you sure you want to Delete the task?",
+                        style = MaterialTheme.typography.bodyLarge,
                         modifier = Modifier.padding(vertical = 8.dp)
                     )
 

@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -31,48 +32,10 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
 
 
 
-    private val _uiState = TaskUiState(getTasksByDate(LocalDate.now()),mutableStateOf(LocalDate.now()))
-      val uiState: TaskUiState = _uiState
+    private val _uiState = MutableStateFlow(TaskUiState(getTasksByDate(LocalDate.now())))
+      val uiState: StateFlow<TaskUiState> = _uiState.asStateFlow()
 
-   init {
-      // setUiState(LocalDate.now().toString())
-   }
 
-   /* private fun setUiState(selectedDate: String) {
-         viewModelScope.launch{
-                 _uiState.copy(
-                     selectedDate = mutableStateOf(
-                         selectedDate
-                     ), taskList = getTasksByDate(selectedDate)
-                 )
-
-           *//* _uiState.update { currentState ->
-                currentState.copy(
-                    selectedDate = mutableStateOf(
-                        selectedDate
-                    ), taskList = getTasksByDate(selectedDate)
-                )
-            }*//*
-        }
-    }
-*/
-   /* private fun getUiState(selectedDate: String): TaskUiState {
-
-            return TaskUiState(
-                selectedDate = mutableStateOf(selectedDate),
-                taskList = getTasksByDate(selectedDate)
-            )
-
-    }*/
-
-    fun addTask(title:String, date:LocalDate) {
-        // add to db and update list
-        viewModelScope.launch(IO) {
-            //task.time= getFormattedCurrentTime()
-            taskRepository.addTask(Task( title=title, date= date.toString(), time = getFormattedCurrentTime()))
-        }
-
-    }
 
     fun addTask(task: Task) {
         // add to db and update list
@@ -100,11 +63,24 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     }
 
     fun onDateSelected(selectedDate:LocalDate){
-        _uiState.selectedDate.value=selectedDate
-        _uiState.taskList=getTasksByDate(selectedDate)
-    }
+        _uiState.update { currentState -> currentState.copy(taskList = getTasksByDate(selectedDate), selectedDate = selectedDate) }
+   }
 
      private fun getTasksByDate(date:LocalDate): Flow<List<Task>> =
         taskRepository.getTasksByDate(date.toString())
+
+    fun onFilterSelected(taskType: TaskType){
+        //TODO convert to filter instead of query??!!
+        _uiState.update { currentState -> currentState.copy(taskList = getTasksByTypeAndDate(taskType, _uiState.value.selectedDate), taskType = taskType) }
+           //_uiState.taskList=  _uiState.taskList.map{it.filter { task -> task.isCompleted == true }}
+            System.out.println(_uiState.value.taskList.toString()+"shiva***")
+
+
+
+
+    }
+     private fun getTasksByTypeAndDate(taskType: TaskType, date: LocalDate): Flow<List<Task>> =
+          taskRepository.getTasksByTypeAndDate(taskType, date.toString())
+
 
 }

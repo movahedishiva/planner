@@ -30,4 +30,7 @@ interface TaskDao {
     @Query("SELECT * FROM task_table Where date=:date ORDER BY id ASC")
     fun getTasksByDate(date:String): Flow<List<Task>>
 
+    @Query("SELECT * FROM task_table Where isCompleted=:isCompleted AND date=:date ORDER BY id ASC")
+    fun getTasksByTypeAndDate(isCompleted:Boolean, date: String): Flow<List<Task>>
+
 }

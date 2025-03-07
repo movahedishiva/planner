@@ -1,5 +1,6 @@
 package com.example.planner.data.database
 
+import com.example.planner.ui.TaskType
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
@@ -21,6 +22,15 @@ class OfflineTaskRepository(private val taskDao: TaskDao) : TaskRepository {
 
     override fun getTasksByDate(date: String): Flow<List<Task>> =
         taskDao.getTasksByDate(date)
+
+    override fun getTasksByTypeAndDate(taskType: TaskType, date: String): Flow<List<Task>> {
+        return when(taskType){
+
+            TaskType.COMPLETED -> taskDao.getTasksByTypeAndDate(true,date)
+            TaskType.INCOMPLETE -> taskDao.getTasksByTypeAndDate(false,date)
+            else -> taskDao.getTasksByDate(date)
+        }
+    }
 
 
     override fun getTask(id: Long): Flow<Task> =

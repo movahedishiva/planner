@@ -17,6 +17,12 @@ fun getFormattedDate(date: LocalDate): String {
 }
 
 fun getFormattedCurrentTime():String{
-    val timeFormatter= DateTimeFormatter.ofPattern("hh:mm")
-    return LocalTime.now().format(timeFormatter)
+   /* val timeFormatter= DateTimeFormatter.ofPattern("hh:mm")
+    return LocalTime.now().format(timeFormatter)*/
+    return getFormattedTime(LocalTime.now())
+}
+
+fun getFormattedTime(time:LocalTime):String{
+    val timeFormatter= DateTimeFormatter.ofPattern("HH:mm")
+    return time.format(timeFormatter)
 }

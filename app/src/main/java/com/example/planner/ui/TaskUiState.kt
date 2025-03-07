@@ -8,5 +8,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.LocalDate
 
-data class TaskUiState(var taskList : Flow<List<Task>> , var selectedDate: MutableState<LocalDate> =mutableStateOf(
-    LocalDate.now()) )
+data class TaskUiState(val taskList : Flow<List<Task>> , val selectedDate: LocalDate= LocalDate.now(), val taskType: TaskType =  TaskType.All)
+
+
+enum class TaskType{
+    COMPLETED,
+    INCOMPLETE,
+    All
+}
