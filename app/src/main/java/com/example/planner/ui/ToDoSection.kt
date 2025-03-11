@@ -210,9 +210,10 @@ fun ToDoTitle(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        IconButton(onClick = onClickShare) {
+        //TODO: share
+       /* IconButton(onClick = onClickShare) {
             Icon(Icons.Default.Share, contentDescription = "Share")
-        }
+        }*/
 
         IconButton(onClick = { showFilterDialog = true }) {
             Icon(Icons.Default.Menu, contentDescription = "filter")
@@ -369,9 +370,9 @@ fun TaskCard(
             )
             //  if(!showActions) {
             //  graphicsLayer.
-            IconButton(modifier = Modifier.graphicsLayer {
+            IconButton(/*modifier = Modifier.graphicsLayer {
                 if (hideActions) alpha = 0f else alpha = 1f
-            }, onClick = { showDeleteDialog = true }) {
+            },*/ onClick = { showDeleteDialog = true }) {
                 Icon(Icons.Default.Delete, contentDescription = "delete")
             }
 
