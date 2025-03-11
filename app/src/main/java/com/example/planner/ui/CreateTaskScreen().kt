@@ -1,5 +1,6 @@
 package com.example.planner.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -40,7 +41,7 @@ import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
 @Composable
-fun createTaskScreen(
+fun CreateTaskScreen(
     screenTitle:String,
     task: Task,
     onDismissDialog: () -> Unit,
@@ -68,7 +69,6 @@ fun createTaskScreen(
                 ) {
 
                     var textFieldValue by remember { mutableStateOf(TextFieldValue(text=task.title, selection = TextRange(task.title.length))) }
-                    // var text by remember { mutableStateOf("") }
                     val focusRequester = remember { FocusRequester() }
 
                     Text(text = screenTitle, style = MaterialTheme.typography.titleMedium)
@@ -98,33 +98,6 @@ fun createTaskScreen(
 
 
                         )
-/*
-                    OutlinedTextField(
-                        value = textFieldValue,
-                        onValueChange = { textFieldValue = it
-                            task.title=it.text
-                            validateText(task.title)},
-                        isError = isError,
-                        supportingText = {
-                            if(isError){
-                                Text(text=titleErrorText,
-                                    modifier = Modifier.fillMaxWidth().align(alignment = Alignment.Start),
-                                    color= MaterialTheme.colorScheme.error
-                                )
-                            }
-                        },
-                        label = { Text(stringResource(R.string.title)) },
-                        singleLine = true,
-                        textStyle = TextStyle(
-                            // color = colorResource(R.color.purple_200),
-                            fontWeight = FontWeight.SemiBold
-                        ),
-                        modifier = Modifier
-                            .focusRequester(focusRequester)
-                            .padding(16.dp),
-
-
-                        )*/
 
                     LaunchedEffect(Unit) {
                         focusRequester.requestFocus()
@@ -170,8 +143,9 @@ fun createTaskScreen(
 
 }
 
+@SuppressLint("ComposableNaming")
 @Preview()
 @Composable
-fun createTaskPreview(){
-    createTaskScreen("addTask",Task(1,"task1",""), {},{})
+fun CreateTaskPreview(){
+    CreateTaskScreen("addTask",Task(1,"task1",""), {},{})
 }

@@ -41,9 +41,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.planner.data.database.Task
+import com.example.planner.ui.CreateTaskScreen
 import com.example.planner.ui.ShowTaskDialog
 import com.example.planner.ui.TaskUiState
-import com.example.planner.ui.createTaskScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +91,7 @@ fun MainScreen(
                 }
 
                 composable(PlannerScreen.CreateTask.name){
-                   createTaskScreen( screenTitle = stringResource(R.string.addTask),task = Task(title = "",date=taskUiState.value.selectedDate.toString()),{navController.popBackStack(PlannerScreen.Start.name,inclusive = false)},onSaveTask = taskViewModel::addTask)
+                   CreateTaskScreen( screenTitle = stringResource(R.string.addTask),task = Task(title = "",date=taskUiState.value.selectedDate.toString()),{navController.popBackStack(PlannerScreen.Start.name,inclusive = false)},onSaveTask = taskViewModel::addTask)
                 }
             }
          //   ShowTaskDialog(dialogTitle = stringResource(R.string.addTask), task = Task(title = "",date=taskUiState.value.selectedDate.toString()),onDismissDialog = { showDialog = false },onSaveTask = taskViewModel::addTask, showDialog)
