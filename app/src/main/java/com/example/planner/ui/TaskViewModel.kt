@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.planner.data.database.Task
 import com.example.planner.data.database.TaskRepository
 import com.example.planner.util.getFormattedCurrentTime
+import com.example.planner.util.importantObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
@@ -35,9 +36,11 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(TaskUiState(getTasksByDate(LocalDate.now())))
       val uiState: StateFlow<TaskUiState> = _uiState.asStateFlow()
 
+    lateinit var a:String
 
 
     fun addTask(task: Task) {
+        importantObject.a()
         // add to db and update list
         viewModelScope.launch(IO) {
             //task.time= getFormattedCurrentTime()
