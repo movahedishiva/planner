@@ -36,11 +36,10 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     private val _uiState = MutableStateFlow(TaskUiState(getTasksByDate(LocalDate.now())))
       val uiState: StateFlow<TaskUiState> = _uiState.asStateFlow()
 
-    lateinit var a:String
 
 
     fun addTask(task: Task) {
-        importantObject.a()
+
         // add to db and update list
         viewModelScope.launch(IO) {
             //task.time= getFormattedCurrentTime()
@@ -69,17 +68,13 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
         _uiState.update { currentState -> currentState.copy(taskList = getTasksByDate(selectedDate), selectedDate = selectedDate) }
    }
 
-     private fun getTasksByDate(date:LocalDate): Flow<List<Task>> =
+      fun getTasksByDate(date:LocalDate): Flow<List<Task>> =
         taskRepository.getTasksByDate(date.toString())
 
     fun onFilterSelected(taskType: TaskType){
-        //TODO convert to filter instead of query??!!
         _uiState.update { currentState -> currentState.copy(taskList = getTasksByTypeAndDate(taskType, _uiState.value.selectedDate), taskType = taskType) }
-           //_uiState.taskList=  _uiState.taskList.map{it.filter { task -> task.isCompleted == true }}
-            System.out.println(_uiState.value.taskList.toString()+"shiva***")
 
-
-
+        System.out.println(_uiState.value.taskList.toString()+"shiva***")
 
     }
      private fun getTasksByTypeAndDate(taskType: TaskType, date: LocalDate): Flow<List<Task>> =

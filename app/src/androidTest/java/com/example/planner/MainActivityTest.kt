@@ -62,6 +62,12 @@ class MainActivityTest{
         composeTestRule.onNodeWithTagStringId(R.string.selectedDate).assertTextEquals(getFormattedDate(anotherDay))
     }
 
+    @Test
+    fun addTask(){
+        onAddButton()
+
+    }
+
 
 
 
