@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -116,7 +117,7 @@ fun Day(day: WeekDay, currentDate: LocalDate, onDaySelected: (LocalDate) -> Unit
 
     Box(
         modifier = Modifier
-            .aspectRatio(1f)
+            .aspectRatio(1f).testTag("DayBox")
             .clickable(
                 onClick = {
                     onDaySelected(day.date)

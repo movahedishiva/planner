@@ -36,6 +36,8 @@ import com.example.planner.ui.WeekCalendarSection
 import com.example.planner.ui.theme.PlannerTheme
 
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -71,11 +73,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(
-    taskViewModel: TaskViewModel= viewModel(factory = AppViewModelProvider.Factory)
+    taskViewModel: TaskViewModel= viewModel(factory = AppViewModelProvider.Factory),
+    navController: NavHostController = rememberNavController()
 ) {
    // var showDialog by remember { mutableStateOf(false) }
     val taskUiState=taskViewModel.uiState.collectAsStateWithLifecycle()
-    val navController= rememberNavController()
+    //val navController= rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen=backStackEntry?.destination?.route ?: PlannerScreen.Start.name
 

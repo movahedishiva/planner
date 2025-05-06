@@ -1,7 +1,11 @@
 package com.example.planner.ui.theme
 import android.app.Activity
 import android.os.Build
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
@@ -11,12 +15,27 @@ import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 
+
+@Preview
+@Composable
+fun ColorPreview(){
+    val colors=MaterialTheme.colorScheme
+    Column{
+        Box(Modifier.size(100.dp).background(colors.primary))
+        Box(Modifier.size(100.dp).background(primaryLight))
+        Box(Modifier.size(100.dp).background(onPrimaryLight))
+        Box(Modifier.size(100.dp).background(backgroundLight))
+    }
+}
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
