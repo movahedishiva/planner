@@ -78,16 +78,16 @@ fun ToDoSection(
     val context = LocalContext.current
     // val coroutineScope = rememberCoroutineScope()
     // val snackbarHostState = remember { SnackbarHostState() }
-    val graphicsLayer = rememberGraphicsLayer()
+  //  val graphicsLayer = rememberGraphicsLayer()
 
-    val writeStorageAccessState = rememberMultiplePermissionsState(
+  /*  val writeStorageAccessState = rememberMultiplePermissionsState(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             // No permissions are needed on Android 10+ to add files in the shared storage
             emptyList()
         } else {
             listOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
-    )
+    )*/
 
     Column() {
 
@@ -104,14 +104,14 @@ fun ToDoSection(
 
         Box(
             modifier = Modifier
-                .drawWithCache {
+               /* .drawWithCache {
                     onDrawWithContent {
                         graphicsLayer.record {
                             this@onDrawWithContent.drawContent()
                         }
                         drawLayer(graphicsLayer)
                     }
-                }
+                }*/
                 .fillMaxHeight()
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp), contentAlignment = Alignment.Center
@@ -135,19 +135,19 @@ fun ToDoSection(
 
                     //  val a= @Composable {context:Context,graphicsLayer:GraphicsLayer -> shareBitmapFromComposable(context,graphicsLayer) }
                     // val a: @Composable () -> Unit = { shareBitmapFromComposable(context,graphicsLayer,writeStorageAccessState) }
-                    var callShare by remember { mutableStateOf(false) }
-                    ToDoTitle(modifier, taskUiState, { callShare = true }, onClickFilter)
-                    if (callShare) {
+                  //  var callShare by remember { mutableStateOf(false) }
+                    ToDoTitle(modifier, taskUiState, /*{ callShare = true },*/ onClickFilter)
+                  /*  if (callShare) {
                         ShareBitmapFromComposable(
                             context,
                             graphicsLayer,
                             writeStorageAccessState,
                             { callShare = false })
-                        /* SideEffect {
+                        *//* SideEffect {
                              if(callShare)
                              callShare = false
-                         }*/
-                    }
+                         }*//*
+                    }*/
 
                     LazyColumn(
                         modifier = Modifier
@@ -160,8 +160,8 @@ fun ToDoSection(
                                 task,
                                 onRemoveTask = onRemoveTask,
                                 onUpdateTask = onUpdateTask,
-                                callShare,
-                                graphicsLayer
+                              //  callShare,
+                                //graphicsLayer
                             )
                         }
                     }
@@ -183,7 +183,7 @@ fun ToDoSection(
 fun ToDoTitle(
     modifier: Modifier = Modifier,
     taskUiState: TaskUiState,
-    onClickShare: () -> Unit,
+    //onClickShare: () -> Unit,
     onClickFilter: (taskType: TaskType) -> Unit
 ) {
 
@@ -319,8 +319,8 @@ fun TaskCard(
     task: Task,
     onRemoveTask: (task: Task) -> Unit,
     onUpdateTask: (task: Task) -> Unit,
-    hideActions: Boolean,
-    graphicsLayer: GraphicsLayer
+    //hideActions: Boolean,
+    //graphicsLayer: GraphicsLayer
 ) {
 
     var checkBoxSelected by mutableStateOf(task.isCompleted)

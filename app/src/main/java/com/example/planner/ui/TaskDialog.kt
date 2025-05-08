@@ -157,8 +157,8 @@ fun ShowTaskDialog(
                     OutlinedTextField(
                         value = textFieldValue,
                         onValueChange = { textFieldValue = it
-                                         task.title=it.text
-                                         validateText(task.title)},
+                                        // task.title=it.text
+                                         validateText(it.text)},
                         isError = isError,
                         supportingText = {
                             if(isError){
@@ -201,9 +201,10 @@ fun ShowTaskDialog(
 
                         Button(onClick = {
 
-                            if(task.title.isEmpty()){
+                            if(textFieldValue.text.isEmpty()){
                                 isError=true
                             }else {
+                                task.title=textFieldValue.text
                                 onSaveTask(task)
                                 onDismissDialog()
                             }
