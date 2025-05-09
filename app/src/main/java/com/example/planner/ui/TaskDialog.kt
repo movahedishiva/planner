@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +39,7 @@ import com.example.planner.data.database.Task
 import com.example.planner.ui.theme.PlannerTheme
 import java.time.LocalDate
 
-
+/*
 @Composable
 fun ShowAddTaskDialog(
     taskUiState: TaskUiState,
@@ -116,7 +117,7 @@ fun ShowAddTaskDialog(
 
     }
 
-}
+}*/
 
 
 @Composable
@@ -195,7 +196,7 @@ fun ShowTaskDialog(
                     ) {
 
 
-                        Button(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
+                        OutlinedButton(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
                             Text(text = stringResource(R.string.cancel), textAlign = TextAlign.Center)
                         }
 
@@ -224,89 +225,6 @@ fun ShowTaskDialog(
 
 }
 
-
-/*
-@Composable
-fun ShowUpdateTaskDialog(
-    task: Task,
-    onDismissDialog: () -> Unit,
-    onUpdateTask: (task: Task) -> Unit,
-    showDialog: Boolean
-) {
-
-
-    if (showDialog) {
-        Dialog(onDismissRequest = onDismissDialog) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-                    .padding(16.dp),
-                shape = RoundedCornerShape(16.dp),
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(16.dp)
-                ) {
-
-                    var textFieldValue by remember { mutableStateOf(TextFieldValue(text=task.title, selection = TextRange(task.title.length))) }
-                    val focusRequester = remember { FocusRequester() }
-
-                    Text(text = "Edit Task", fontWeight = FontWeight.Bold)
-                    OutlinedTextField(
-                        value = textFieldValue,
-                        onValueChange = {
-                            textFieldValue = it
-                            task.title = it.text
-                        },
-                        label = { Text("Task") },
-                        singleLine = true,
-                        textStyle = TextStyle(
-                            color = colorResource(R.color.purple_200),
-                            fontWeight = FontWeight.Bold
-                        ),
-                        modifier = Modifier
-                            .focusRequester(focusRequester)
-                            .padding(16.dp)
-
-                    )
-
-                    LaunchedEffect(Unit) {
-                        focusRequester.requestFocus()
-
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-
-
-                        Button(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
-                            Text(text = "Cancel", textAlign = TextAlign.Center)
-                        }
-
-                        Button(onClick = {
-
-                            onUpdateTask(task)
-                            onDismissDialog()
-
-                        }, modifier = Modifier.weight(1f)) {
-                            Text(text = "Save", textAlign = TextAlign.Center)
-                        }
-
-                    }
-
-                }
-            }
-        }
-
-    }
-
-}*/
 
 
 @Composable
@@ -351,7 +269,7 @@ fun ShowDeleteTaskDialog(
                     ) {
 
 
-                        Button(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
+                        OutlinedButton(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
                             Text(text = "Cancel", textAlign = TextAlign.Center)
                         }
 
@@ -361,7 +279,7 @@ fun ShowDeleteTaskDialog(
                             onDismissDialog()
 
                         }, modifier = Modifier.weight(1f)) {
-                            Text(text = "OK", textAlign = TextAlign.Center)
+                            Text(text = "Delete", textAlign = TextAlign.Center)
                         }
 
                     }
@@ -377,8 +295,17 @@ fun ShowDeleteTaskDialog(
 
 @Preview
 @Composable
-private fun ShowAddTaskDialogPreview() {
+private fun ShowTaskDialogPreview() {
     PlannerTheme {
-        //ShowAddTaskDialog(onDismissDialog = {  }, onAddTask = {}, showDialog = true)
+        ShowTaskDialog("save",Task(1,"shopping","1234"),{},{},true)
+
+    }
+}
+
+@Preview
+@Composable
+private fun ShowDeleteDialogPreview() {
+    PlannerTheme {
+        ShowDeleteTaskDialog(Task(1,"shopping","1234"),{},{},true)
     }
 }

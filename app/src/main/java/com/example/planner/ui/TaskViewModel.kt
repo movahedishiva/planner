@@ -65,7 +65,7 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     }
 
     fun onDateSelected(selectedDate:LocalDate){
-        _uiState.update { currentState -> currentState.copy(taskList = getTasksByDate(selectedDate), selectedDate = selectedDate) }
+        _uiState.update { currentState -> currentState.copy(taskList = getTasksByTypeAndDate(currentState.taskType,selectedDate), selectedDate = selectedDate) }
    }
 
       fun getTasksByDate(date:LocalDate): Flow<List<Task>> =

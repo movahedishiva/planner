@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.planner.R
 import com.example.planner.data.database.Task
+import com.example.planner.ui.theme.PlannerTheme
 
 @Composable
 fun CreateTaskScreen(
@@ -106,7 +108,7 @@ fun CreateTaskScreen(
                     ) {
 
 
-                        Button(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
+                        OutlinedButton(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
                             Text(text = stringResource(R.string.cancel), textAlign = TextAlign.Center)
                         }
 
@@ -140,5 +142,8 @@ fun CreateTaskScreen(
 @Preview()
 @Composable
 fun CreateTaskPreview(){
-    CreateTaskScreen("addTask",Task(1,"task1",""), {},{})
+    PlannerTheme {
+        CreateTaskScreen("addTask",Task(1,"task1",""), {},{})
+
+    }
 }

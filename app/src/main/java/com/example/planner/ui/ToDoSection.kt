@@ -30,6 +30,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -289,7 +290,7 @@ fun FilterDialog(
                 ) {
 
 
-                    Button(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
+                    OutlinedButton(onClick = onDismissDialog, modifier = Modifier.weight(1f)) {
                         Text(text = stringResource(R.string.cancel), textAlign = TextAlign.Center)
                     }
 
@@ -384,14 +385,30 @@ fun TaskCard(
         }
     }
 }
+/*
+
+@Preview
+@Composable
+private fun FilterDialogPreview() {
+
+    FilterDialog(TaskType.COMPLETED,{},{})
+
+}
+
+@Preview
+@Composable
+private fun ToDoTitlePreview() {
+
+    ToDoTitle(taskType = TaskType.All, onClickFilter = {})
+
+}
 
 
 @Preview
 @Composable
-private fun ToDoSectionPreview() {
+private fun TaskCardPreview() {
 
-    // ToDoSection()
-    // val task= Task(1,"title1","date","time")
-    // TaskCard(task) {}
-}
+    TaskCard(Task(1,"Shopping",""),{},{})
+
+}*/
 

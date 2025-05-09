@@ -1,5 +1,6 @@
 package com.example.planner
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -43,7 +44,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.planner.data.database.Task
+import com.example.planner.data.database.TaskRepository
 import com.example.planner.ui.CreateTaskScreen
+import com.example.planner.ui.PlannerApplication
 import com.example.planner.ui.ShowTaskDialog
 import com.example.planner.ui.TaskUiState
 
@@ -76,6 +79,7 @@ fun MainScreen(
     taskViewModel: TaskViewModel= viewModel(factory = AppViewModelProvider.Factory),
     navController: NavHostController = rememberNavController()
 ) {
+    //val taskViewModel: TaskViewModel= viewModel(factory = AppViewModelProvider.Factory)
    // var showDialog by remember { mutableStateOf(false) }
     val taskUiState=taskViewModel.uiState.collectAsStateWithLifecycle()
     //val navController= rememberNavController()
@@ -91,6 +95,7 @@ fun MainScreen(
                 modifier = Modifier){
                 composable(PlannerScreen.Start.name){
                     StartScreen(innerPadding,taskUiState,taskViewModel)
+
                 }
 
                 composable(PlannerScreen.CreateTask.name){
@@ -113,11 +118,9 @@ fun MainScreen(
 
 @Composable
 fun StartScreen(innerPadding:PaddingValues, taskUiState: State<TaskUiState>, taskViewModel: TaskViewModel){
-   /* var showDialog by remember { mutableStateOf(false) }
 
-    Scaffold(modifier = Modifier.fillMaxSize(),
-        content = { innerPadding ->
-*/
+    //val taskViewModel: TaskViewModel= viewModel(factory = AppViewModelProvider.Factory)
+
     Column(
         modifier = Modifier.padding( top = 16.dp,bottom = innerPadding.calculateBottomPadding())
 
@@ -130,14 +133,7 @@ fun StartScreen(innerPadding:PaddingValues, taskUiState: State<TaskUiState>, tas
 
 
     }
-/*
-    ShowTaskDialog(dialogTitle = stringResource(R.string.addTask), task = Task(title = "",date=taskUiState.value.selectedDate.toString()),onDismissDialog = { showDialog = false },onSaveTask = taskViewModel::addTask, showDialog)
 
-        },
-
-        floatingActionButton = { OnAddButton(onClick = { showDialog = true })},
-        floatingActionButtonPosition= FabPosition.Center
-    )*/
 
 }
 
@@ -159,9 +155,9 @@ fun OnAddButton(onClick: () -> Unit) {
 fun MainScreenPreview() {
     PlannerTheme {
 
-      //  var showDialog by remember { mutableStateOf(false) }
         MainScreen()
-     //   ShowAddTaskDialog(onDismissDialog = { showDialog = false },{}, showDialog)
+       // val viewModel=TaskViewModel(PlannerApplication().container.taskRepository)
+       // StartScreen(PaddingValues(10.dp), viewModel.uiState.collectAsStateWithLifecycle(),viewModel)
 
     }
 }
