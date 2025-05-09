@@ -120,7 +120,7 @@ fun ToDoSection(
         ) {
 
             // if(taskUiState.value.taskList.count()==0){
-            if (taskList.isEmpty() && taskUiState.taskType.equals(TaskType.All)) {
+            if (taskList.isEmpty() && taskUiState.filterMap.getOrDefault(taskUiState.selectedDate,TaskType.All) == TaskType.All) {
                 Text(
                     text = "Click \" + \" to add a new task",
                     modifier = Modifier.padding(8.dp),
@@ -252,7 +252,7 @@ fun FilterDialog(
                 )
 
                 val radioOptions = listOf(TaskType.All, TaskType.COMPLETED, TaskType.INCOMPLETE)
-                val (selectedOption, onOptionSelected) = remember { mutableStateOf(taskUiState.taskType) }
+                val (selectedOption, onOptionSelected) = remember { mutableStateOf(taskUiState.filterMap.getOrDefault(taskUiState.selectedDate,TaskType.All)) }
                 Column(Modifier.selectableGroup()) {
                     radioOptions.forEach { text ->
                         Row(
