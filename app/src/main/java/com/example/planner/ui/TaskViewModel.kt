@@ -65,7 +65,7 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
     }
 
     fun onDateSelected(selectedDate:LocalDate){
-        _uiState.update { currentState -> currentState.copy(taskList = getTasksByTypeAndDate(currentState.filterMap.getOrPut(selectedDate){TaskType.All},selectedDate), selectedDate = selectedDate) }
+        _uiState.update { currentState -> currentState.copy(taskList = getTasks(currentState.filterMap.getOrPut(selectedDate){TaskType.All},selectedDate), selectedDate = selectedDate) }
    }
 
       fun getTasksByDate(date:LocalDate): Flow<List<Task>> =
@@ -73,12 +73,12 @@ class TaskViewModel(private val taskRepository: TaskRepository) : ViewModel() {
 
     fun onFilterSelected(taskType: TaskType){
         _uiState.value.filterMap[_uiState.value.selectedDate]=taskType
-        _uiState.update { currentState -> currentState.copy(taskList = getTasksByTypeAndDate(taskType, _uiState.value.selectedDate)) }
+        _uiState.update { currentState -> currentState.copy(taskList = getTasks(taskType, _uiState.value.selectedDate)) }
 
         System.out.println(_uiState.value.taskList.toString()+"shiva***")
 
     }
-     private fun getTasksByTypeAndDate(taskType: TaskType, date: LocalDate): Flow<List<Task>> =
+     private fun getTasks(taskType: TaskType, date: LocalDate): Flow<List<Task>> =
           taskRepository.getTasksByTypeAndDate(taskType, date.toString())
 
 
