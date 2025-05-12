@@ -7,11 +7,11 @@ import java.time.LocalDate
 data class TaskUiState(val taskList : Flow<List<Task>> , val selectedDate: LocalDate= LocalDate.now(), val filterMap: MutableMap<LocalDate,FilterType> = mutableMapOf()){
 
     fun getFilterType(): FilterType{
-        return filterMap.getOrPut(selectedDate) { FilterType.All }
+        return filterMap.getOrPut(selectedDate) { FilterType.ALL }
     }
 
     fun getFilterType(selectedDate: LocalDate): FilterType{
-        return filterMap.getOrPut(selectedDate) { FilterType.All }
+        return filterMap.getOrPut(selectedDate) { FilterType.ALL }
     }
 }
 
@@ -19,5 +19,5 @@ data class TaskUiState(val taskList : Flow<List<Task>> , val selectedDate: Local
 enum class FilterType{
     COMPLETED,
     INCOMPLETE,
-    All
+    ALL
 }

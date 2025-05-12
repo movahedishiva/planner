@@ -111,7 +111,7 @@ fun ToDoSection(
         ) {
 
             // if(taskUiState.value.taskList.count()==0){
-            if (taskList.isEmpty() && taskUiState.getFilterType() == FilterType.All) {
+            if (taskList.isEmpty() && taskUiState.getFilterType() == FilterType.ALL) {
                 Text(
                     text = "Click \" + \" to add a new task",
                     modifier = Modifier.padding(8.dp),
@@ -209,7 +209,6 @@ fun ToDoTitle(
             Text(
                 text = taskUiState.getFilterType().name,
                 modifier = Modifier,
-                color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Normal,
                 style = MaterialTheme.typography.titleSmall
             )
@@ -250,7 +249,7 @@ fun FilterDialog(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                val radioOptions = listOf(FilterType.All, FilterType.COMPLETED, FilterType.INCOMPLETE)
+                val radioOptions = listOf(FilterType.ALL, FilterType.COMPLETED, FilterType.INCOMPLETE)
                 val (selectedOption, onOptionSelected) = remember { mutableStateOf(taskUiState.getFilterType()) }
                 Column(Modifier.selectableGroup()) {
                     radioOptions.forEach { text ->
