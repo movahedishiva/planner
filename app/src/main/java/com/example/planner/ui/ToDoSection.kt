@@ -1,8 +1,6 @@
 package com.example.planner.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,27 +38,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.layer.GraphicsLayer
-import androidx.compose.ui.graphics.layer.drawLayer
-import androidx.compose.ui.graphics.rememberGraphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.planner.R
 import com.example.planner.data.database.Task
-import com.example.planner.util.ShareBitmapFromComposable
 import com.example.planner.util.getFormattedDate
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -69,7 +60,7 @@ fun ToDoSection(
     taskUiState: TaskUiState,
     onRemoveTask: (task: Task) -> Unit,
     onUpdateTask: (task: Task) -> Unit,
-    onClickFilter: (taskType: TaskType) -> Unit,
+    onClickFilter: (filterType: FilterType) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -120,7 +111,7 @@ fun ToDoSection(
         ) {
 
             // if(taskUiState.value.taskList.count()==0){
-            if (taskList.isEmpty() && taskUiState.filterMap.getOrDefault(taskUiState.selectedDate,TaskType.All) == TaskType.All) {
+            if (taskList.isEmpty() && taskUiState.getFilterType() == FilterType.All) {
                 Text(
                     text = "Click \" + \" to add a new task",
                     modifier = Modifier.padding(8.dp),
@@ -185,8 +176,9 @@ fun ToDoTitle(
     modifier: Modifier = Modifier,
     taskUiState: TaskUiState,
     //onClickShare: () -> Unit,
-    onClickFilter: (taskType: TaskType) -> Unit
+    onClickFilter: (filterType: FilterType) -> Unit
 ) {
+
 
     var showFilterDialog by remember { mutableStateOf(false) }
     if (showFilterDialog)
@@ -214,6 +206,13 @@ fun ToDoTitle(
             /* IconButton(onClick = onClickShare) {
             Icon(Icons.Default.Share, contentDescription = "Share")
         }*/
+            Text(
+                text = taskUiState.getFilterType().name,
+                modifier = Modifier,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Normal,
+                style = MaterialTheme.typography.titleSmall
+            )
 
             IconButton(onClick = { showFilterDialog = true }) {
                 Icon(Icons.Default.Menu, contentDescription = "filter")
@@ -229,7 +228,7 @@ fun ToDoTitle(
 fun FilterDialog(
     taskUiState: TaskUiState,
     onDismissDialog: () -> Unit,
-    onClickFilter: (taskType: TaskType) -> Unit
+    onClickFilter: (filterType: FilterType) -> Unit
 ) {
 
 
@@ -251,8 +250,8 @@ fun FilterDialog(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                val radioOptions = listOf(TaskType.All, TaskType.COMPLETED, TaskType.INCOMPLETE)
-                val (selectedOption, onOptionSelected) = remember { mutableStateOf(taskUiState.filterMap.getOrDefault(taskUiState.selectedDate,TaskType.All)) }
+                val radioOptions = listOf(FilterType.All, FilterType.COMPLETED, FilterType.INCOMPLETE)
+                val (selectedOption, onOptionSelected) = remember { mutableStateOf(taskUiState.getFilterType()) }
                 Column(Modifier.selectableGroup()) {
                     radioOptions.forEach { text ->
                         Row(

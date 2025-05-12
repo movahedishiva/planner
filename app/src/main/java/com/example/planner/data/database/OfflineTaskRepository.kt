@@ -1,8 +1,7 @@
 package com.example.planner.data.database
 
-import com.example.planner.ui.TaskType
+import com.example.planner.ui.FilterType
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
 
 class OfflineTaskRepository(private val taskDao: TaskDao) : TaskRepository {
     override suspend fun addTask(task: Task) =
@@ -23,11 +22,11 @@ class OfflineTaskRepository(private val taskDao: TaskDao) : TaskRepository {
     override fun getTasksByDate(date: String): Flow<List<Task>> =
         taskDao.getTasksByDate(date)
 
-    override fun getTasksByTypeAndDate(taskType: TaskType, date: String): Flow<List<Task>> {
-        return when(taskType){
+    override fun getTasksByTypeAndDate(filterType: FilterType, date: String): Flow<List<Task>> {
+        return when(filterType){
 
-            TaskType.COMPLETED -> taskDao.getTasksByTypeAndDate(true,date)
-            TaskType.INCOMPLETE -> taskDao.getTasksByTypeAndDate(false,date)
+            FilterType.COMPLETED -> taskDao.getTasksByTypeAndDate(true,date)
+            FilterType.INCOMPLETE -> taskDao.getTasksByTypeAndDate(false,date)
             else -> taskDao.getTasksByDate(date)
         }
     }
