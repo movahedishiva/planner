@@ -5,14 +5,14 @@ plugins {
 }
 
 android {
-    namespace = "com.example.planner"
+    namespace = "com.shiva.planner"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.planner"
+        applicationId = "com.shiva.planner"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 3
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
